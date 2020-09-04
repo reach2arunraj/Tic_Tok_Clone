@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import Video from "./Video"
+import Video from "./Video" 
+import instance from "./axios"
+
 
 function App() {
+  const [Videos, setVideos] = useState([])
+
+  useEffect(() => {
+    async function fetchPosts(){
+      const response = await instance.get("/v2/posts")
+      setVideos(response.data)
+
+      return response;
+    }
+    fetchPosts();
+
+  }, []);
+
+  console.log(Videos)
+
   return (
     <div className="app">
       <div className="app_videos">
@@ -15,7 +32,15 @@ function App() {
         messages={222}
         messages={333}
         />
-        <Video />
+        <Video 
+        url={"https://v16m.tiktokcdn.com/4748d3f0db8cc22b493e3be91db806fd/5f529e20/video/tos/useast2a/tos-useast2a-v-0068/7b13f968c7404086b5ed479d192124e7/?a=1233&br=21482&bt=10741&cr=0&cs=&cv=1&dr=0&ds=2&er=&l=202009041403540101890361330F0A168D&lr=tiktok_m&mime_type=video_mp4&qs=13&rc=M2Q2aTdvZ3Q0ZTMzOTczM0ApZGtxOHZtNnZxZTMzZTc8eWdeZWsycGcwcGtfLS1fMTZzcy1eMGMxaWFuLl8tLTMxLS06Yw%3D%3D&vl=&vr="}
+        channel="arunsmith60"
+        description="Wow it is Clone"
+        song="I am song from Tamil"
+        likes={111}
+        messages={222}
+        messages={333}
+        />
       </div>
     </div>
   );
